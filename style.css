@@ -1,0 +1,72 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  padding: 0.5rem 1rem;
+}
+
+input {
+  min-width: 3rem;
+}
+
+body #table {
+  display: flex;
+  flex-direction: column;
+}
+body #table .row {
+  display: grid;
+  background-color: rgb(216, 97, 42);
+  padding: 0.5rem;
+  gap: 1rem;
+  grid-template-columns: repeat(14, 1fr);
+  grid-template-areas: "id first first last last capsule age city city gender hobby hobby edit delete";
+}
+body #table .row:first-of-type {
+  background-color: rgb(0, 110, 255);
+  color: white;
+  font-weight: bold;
+  font-size: large;
+}
+body #table .row:nth-of-type(2n) {
+  background-color: burlywood;
+}
+body #table .row .id {
+  grid-area: id;
+}
+body #table .row .first {
+  grid-area: first;
+}
+body #table .row .last {
+  grid-area: last;
+}
+body #table .row .capsule {
+  grid-area: capsule;
+}
+body #table .row .age {
+  grid-area: age;
+}
+body #table .row .city {
+  grid-area: city;
+}
+body #table .row .gender {
+  grid-area: gender;
+}
+body #table .row .hobby {
+  grid-area: hobby;
+}
+body #table .row .edit {
+  grid-area: edit;
+}
+body #table .row .delete {
+  grid-area: delete;
+}
+body #table .row .row-field {
+  text-align: center;
+}/*# sourceMappingURL=style.css.map */

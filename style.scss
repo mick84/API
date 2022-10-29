@@ -1,0 +1,47 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+a {
+  text-decoration: none;
+}
+button {
+  padding: 0.5rem 1rem;
+}
+input {
+  min-width: 3rem;
+}
+body {
+  #table {
+    display: flex;
+    flex-direction: column;
+    .row {
+      display: grid;
+      background-color: rgb(216, 97, 42);
+
+      padding: 0.5rem;
+      gap: 1rem;
+      &:first-of-type {
+        background-color: rgb(0, 110, 255);
+        color: white;
+        font-weight: bold;
+        font-size: large;
+      }
+      &:nth-of-type(2n) {
+        background-color: burlywood;
+      }
+      grid-template-columns: repeat(14, 1fr);
+      grid-template-areas: "id first first last last capsule age city city gender hobby hobby edit delete";
+      $areas: id, first, last, capsule, age, city, gender, hobby, edit, delete;
+      @each $a in $areas {
+        .#{$a} {
+          grid-area: $a;
+        }
+      }
+      .row-field {
+        text-align: center;
+      }
+    }
+  }
+}
