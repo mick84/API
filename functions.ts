@@ -13,8 +13,8 @@ export const makeRow = (s: Student) => {
   row.className = "row";
   row.innerHTML = `
       <p class="row-field id">${s.id}</p>
-      <input class="row-field first" type="text" name="name" value=${s.firstName} disabled /><input
-        class="row-field last"
+      <input class="row-field firstName" type="text" name="name" value=${s.firstName} disabled /><input
+        class="row-field lastName"
         type="text"
         name="last" value=${s.lastName}
         disabled

@@ -1,7 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles&display=swap");
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Fuzzy Bubbles", cursive;
 }
 
 a {
@@ -16,6 +18,24 @@ input {
   min-width: 3rem;
 }
 
+body {
+  padding: 1rem;
+  background-color: aquamarine;
+}
+body #menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  gap: 2rem;
+  font-size: larger;
+  font-weight: bold;
+  color: red;
+}
+body #menu input,
+body #menu select {
+  padding: 0.5rem 1rem;
+}
 body #table {
   display: flex;
   flex-direction: column;
@@ -23,10 +43,10 @@ body #table {
 body #table .row {
   display: grid;
   background-color: rgb(216, 97, 42);
-  padding: 0.5rem;
+  padding: 0.25rem;
   gap: 1rem;
   grid-template-columns: repeat(14, 1fr);
-  grid-template-areas: "id first first last last capsule age city city gender hobby hobby edit delete";
+  grid-template-areas: "id firstName firstName lastName lastName capsule age city city gender hobby hobby edit delete";
 }
 body #table .row:first-of-type {
   background-color: rgb(0, 110, 255);
@@ -34,17 +54,21 @@ body #table .row:first-of-type {
   font-weight: bold;
   font-size: large;
 }
+body #table .row:first-of-type .col-head {
+  border: 1px solid white;
+  padding: 0.25rem;
+}
 body #table .row:nth-of-type(2n) {
   background-color: burlywood;
 }
 body #table .row .id {
   grid-area: id;
 }
-body #table .row .first {
-  grid-area: first;
+body #table .row .firstName {
+  grid-area: firstName;
 }
-body #table .row .last {
-  grid-area: last;
+body #table .row .lastName {
+  grid-area: lastName;
 }
 body #table .row .capsule {
   grid-area: capsule;

@@ -9,11 +9,26 @@
     <script defer src="app.js" type="module"></script>
   </head>
   <body>
+    <div id="menu">
+      <div>My Capsule</div>
+      <input type="search" name="search" id="search" placeholder="Search..." />
+      <select name="select" id="select">
+        <option value="id">id</option>
+        <option value="firstName">name</option>
+        <option value="lastName">family</option>
+        <option value="capsule">capsule</option>
+        <option value="age">age</option>
+        <option value="city">city</option>
+        <option value="gender">gender</option>
+        <option value="hobby">hobby</option>
+      </select>
+      <button type="submit">Restart</button>
+    </div>
     <div id="table">
       <div class="row">
         <div class="row-field col-head id">ID</div>
-        <div class="row-field col-head first">Name</div>
-        <div class="row-field col-head last">Last Name</div>
+        <div class="row-field col-head firstName">Name</div>
+        <div class="row-field col-head lastName">Last Name</div>
         <div class="row-field col-head capsule">Capsule</div>
         <div class="row-field col-head age">Age</div>
         <div class="row-field col-head city">City</div>

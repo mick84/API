@@ -1,7 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles&display=swap");
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Fuzzy Bubbles", cursive;
 }
 a {
   text-decoration: none;
@@ -13,6 +15,22 @@ input {
   min-width: 3rem;
 }
 body {
+  padding: 1rem;
+  background-color: aquamarine;
+  #menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    gap: 2rem;
+    font-size: larger;
+    font-weight: bold;
+    color: red;
+    input,
+    select {
+      padding: 0.5rem 1rem;
+    }
+  }
   #table {
     display: flex;
     flex-direction: column;
@@ -20,20 +38,25 @@ body {
       display: grid;
       background-color: rgb(216, 97, 42);
 
-      padding: 0.5rem;
+      padding: 0.25rem;
       gap: 1rem;
       &:first-of-type {
         background-color: rgb(0, 110, 255);
         color: white;
         font-weight: bold;
         font-size: large;
+        .col-head {
+          border: 1px solid white;
+          padding: 0.25rem;
+        }
       }
       &:nth-of-type(2n) {
         background-color: burlywood;
       }
       grid-template-columns: repeat(14, 1fr);
-      grid-template-areas: "id first first last last capsule age city city gender hobby hobby edit delete";
-      $areas: id, first, last, capsule, age, city, gender, hobby, edit, delete;
+      grid-template-areas: "id firstName firstName lastName lastName capsule age city city gender hobby hobby edit delete";
+      $areas: id, firstName, lastName, capsule, age, city, gender, hobby, edit,
+        delete;
       @each $a in $areas {
         .#{$a} {
           grid-area: $a;

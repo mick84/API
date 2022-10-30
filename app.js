@@ -1,58 +1,87 @@
-var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (receiver, state, kind, f) {
-    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a getter");
-    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
-    return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
-var _App_table, _App_sortOpts, _App_state;
 import { getStudents, makeRow } from "./functions.js";
 class App {
+    #table = document.getElementById("table");
+    #mainRow = this.#table.querySelector(".row"); //first row: column headers
+    #sortOpts = [
+        "id",
+        "firstName",
+        "lastName",
+        "capsule",
+        "age",
+        "city",
+        "gender",
+        "hobby",
+    ];
+    #state = {
+        sortedBy: {
+            field: "id",
+            ascending: 1,
+        },
+        students: [],
+    };
     constructor() {
-        _App_table.set(this, document.getElementById("table"));
-        _App_sortOpts.set(this, [
-            "id",
-            "name",
-            "family",
-            "capsule",
-            "age",
-            "city",
-            "gender",
-            "hobby",
-        ]);
-        _App_state.set(this, {
-            sortedBy: {
-                field: __classPrivateFieldGet(this, _App_sortOpts, "f")[0],
-                ascending: true,
-            },
-            students: [],
-        });
         window.addEventListener("load", async () => {
-            //this.#state.sortedBy = JSON.parse(sessionStorage.getItem("sortedBy")!);
-            __classPrivateFieldGet(this, _App_state, "f").students = await getStudents();
-            for (const s of __classPrivateFieldGet(this, _App_state, "f").students) {
+            this.#state = {
+                sortedBy: JSON.parse(sessionStorage.getItem("sortedBy")) || {
+                    field: this.#sortOpts[0],
+                    ascending: 1,
+                },
+                students: await getStudents(),
+            };
+            console.log(this.#state);
+            for (const s of this.#state.students) {
                 const row = makeRow(s);
-                __classPrivateFieldGet(this, _App_table, "f").appendChild(row);
+                //make array of rows in the state, to sort and render them!
+                this.#table.appendChild(row);
             }
         });
-        __classPrivateFieldGet(this, _App_table, "f").addEventListener("click", (e) => {
-            var _a;
+        this.#table.addEventListener("click", (e) => {
             const target = e.target;
             switch (true) {
                 case target.classList.contains("delete"):
-                    const row = target.parentElement;
-                    const rowIndex = [...__classPrivateFieldGet(this, _App_table, "f").children].indexOf(row);
-                    console.log(rowIndex);
-                    //delete from state:
-                    __classPrivateFieldGet(this, _App_state, "f").students.splice(rowIndex - 1, 1);
-                    sessionStorage.setItem("students", JSON.stringify(__classPrivateFieldGet(this, _App_state, "f").students));
-                    //delete from UI:
-                    (_a = target.parentElement) === null || _a === void 0 ? void 0 : _a.remove();
+                    this.#deleteRow(target.parentElement);
                     break;
                 case target.classList.contains("col-head"):
-                    console.log(target.textContent);
+                    const idx = [...this.#mainRow.children].indexOf(target);
+                    //console.log(this.#state.sortedBy.field, this.#sortOpts[idx]);
+                    const newOption = this.#sortOpts[idx];
+                    if (this.#state.sortedBy.field === newOption) {
+                        //sort by old key in reversed order
+                        console.log("old");
+                        this.#state.sortedBy.ascending *= -1;
+                        this.#state.students.sort((s1, s2) => {
+                            switch (typeof s1[newOption]) {
+                                case "number":
+                                    return (this.#state.sortedBy.ascending *
+                                        (s1[newOption] - s2[newOption]));
+                                case "string":
+                                    return (this.#state.sortedBy.ascending *
+                                        (s1[newOption] < s2[newOption]
+                                            ? -1
+                                            : s1[newOption] > s2[newOption]
+                                                ? 1
+                                                : 0));
+                            }
+                        });
+                    }
+                    else {
+                        this.#state.sortedBy.field = newOption;
+                        //sort ascending by new key:
+                        console.log("new");
+                    }
                     break;
             }
+            sessionStorage.setItem("students", JSON.stringify(this.#state.students));
         });
     }
+    #deleteRow(row) {
+        const rowIndex = [...this.#table.children].indexOf(row);
+        console.log(rowIndex);
+        //delete from state:
+        this.#state.students.splice(rowIndex - 1, 1);
+        sessionStorage.setItem("students", JSON.stringify(this.#state.students));
+        //delete from UI:
+        row.remove();
+    }
 }
-_App_table = new WeakMap(), _App_sortOpts = new WeakMap(), _App_state = new WeakMap();
 new App();
